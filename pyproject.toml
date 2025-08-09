@@ -1,0 +1,9 @@
+[project]
+name = "codici-vigenti-italiani"
+version = "0.1.0"
+description = "Parser for the texts of the Italian Codes. The processed content is made available through a set of REST APIs."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "striprtf>=0.0.29",
+]
