@@ -1,22 +1,27 @@
 
-import re
-from striprtf.striprtf import rtf_to_text
-from italianCodesParser.header import Header
-from italianCodesParser.article import Article
+# import re
+# from striprtf.striprtf import rtf_to_text
+# from italianCodesParser.header import Header
+# from italianCodesParser.article import Article
+# from italianCodesParser.documentList import DocumentList
+
+from italianCodesParser.document import Document
+from italianCodesParser.documentList import DocumentList
+
+doc = Document(DocumentList.CODICE_PENALE, load=True)
+
+import json
+print(json.dumps(doc.build_headers_hierarchy(), indent=4, ensure_ascii=False))
+
+
+exit(0)
 
 with open("./assets/documents/cp.rtf", "r", encoding="utf-8") as file:
     rtf_content = file.read()
 
 plain_text = rtf_to_text(rtf_content)
 
-# Remove all (( and )) from the text
-plain_text = re.sub(r'\(\(|\)\)', '', plain_text)
 
-# Split the text into lines
-plain_text_lines = plain_text.splitlines()
-
-# remove all empty lines
-plain_text_lines = [line for line in plain_text_lines if line.strip()]
 
 # List of articles parsed, and the current headers to be used
 articles = []
@@ -61,7 +66,7 @@ while i < len(plain_text_lines):
 
 for article in articles:
 
-    if article.id == "339":
+    if article.id == "705":
 
         article.parse_title()
         article.parse_updates()

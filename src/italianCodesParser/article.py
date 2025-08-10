@@ -4,9 +4,10 @@ import re
 
 class Article:
 
-    def __init__(self, id=None, title=None, content=[], updates=[],headers=Header()):
+    def __init__(self, id=None, book=None, title=None, content=[], updates=[],headers=Header()):
 
         self.id = id
+        self.book = book
         self.title = title
         self.content = content
         self.headers = headers
