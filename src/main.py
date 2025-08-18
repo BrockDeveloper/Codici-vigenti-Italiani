@@ -1,14 +1,9 @@
 
-# import re
-# from striprtf.striprtf import rtf_to_text
-# from italianCodesParser.header import Header
-# from italianCodesParser.article import Article
-# from italianCodesParser.documentList import DocumentList
 
-from italianCodesParser.document import Document
-from italianCodesParser.documentList import DocumentList
+from italianCodesParser.documentParser.document import Document
+from italianCodesParser.documentParser.documentType import DocumentType
 
-doc = Document(DocumentList.CODICE_PENALE, load=True)
+doc = Document(DocumentType.CODICE_PENALE)
 
 import json
 print(json.dumps(doc.build_headers_hierarchy(), indent=4, ensure_ascii=False))
