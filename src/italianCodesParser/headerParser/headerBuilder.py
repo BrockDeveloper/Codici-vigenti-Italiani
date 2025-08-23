@@ -27,7 +27,7 @@ class HeaderBuilder:
         }
 
 
-    def __progressive_index__(self):
+    def progressive_index(self):
 
         '''
         Returns the current progressive index as a string in the format:
@@ -60,10 +60,10 @@ class HeaderBuilder:
 
         self._headers[header_type].id = header_id
         self._headers[header_type].name = header_name    
-        self._headers[header_type].progressive = self.__progressive_index__()
+        self._headers[header_type].progressive = self.progressive_index()
         
         return {
-            "progressive": self.__progressive_index__(),
+            "progressive": self.progressive_index(),
             "type": header_type,
             "id": header_id,
             "name": header_name,

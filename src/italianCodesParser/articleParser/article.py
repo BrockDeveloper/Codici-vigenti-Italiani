@@ -1,10 +1,10 @@
-from .headerParser.headerBuilder import Header
+
 from .update import Update
 import re
 
 class Article:
 
-    def __init__(self, id=None, book=None, title=None, content=[], updates=[],headers=Header()):
+    def __init__(self, id=None, book=None, title=None, content=[], updates=[],headers=None):
 
         self.id = id
         self.book = book
@@ -69,5 +69,5 @@ class Article:
             "title": self.title,
             "content": self.content,
             "updates": [update.to_dict() for update in self.updates],
-            "headers": self.headers.to_dict()
+            "headers": self.headers
         }

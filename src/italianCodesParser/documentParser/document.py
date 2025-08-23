@@ -3,6 +3,7 @@ import re
 from .documentType import DocumentType
 from ..headerParser.headerBuilder import HeaderBuilder as Header
 from striprtf.striprtf import rtf_to_text
+from ..articleParser.article import Article
 
 
 class Document:
@@ -20,6 +21,8 @@ class Document:
 
         self.document_type = document_type
         self._plain_text_lines = None
+        self._hierarchy = None
+        self._articles = None
 
         self.__load__()
     
@@ -52,12 +55,21 @@ class Document:
         self._plain_text_lines = [line for line in plain_text_lines if line.strip()]
     
 
+    @property
+    def articles(self):
+        return self._articles
+    
+
+    @property
+    def hierarchy(self):
+        return self._hierarchy
 
 
-    def build_headers_hierarchy(self):
+    def build(self):
 
         current_headers = Header()
-        hierarchy = []
+        self._hierarchy = []
+        self._articles = []
 
         i = 0
         while i < len(self._plain_text_lines):
@@ -76,10 +88,33 @@ class Document:
                 header_name = header_name.split("<br/>")[0]
 
                 # Get the hierarchy of the current header
-                hierarchy.append(
+                self._hierarchy.append(
                     current_headers.snapshot_update(header_type, header_id, header_name)
                 )
-            
-            i = i + 1
 
-        return hierarchy
+                # Move to the next iteration
+                i = i + 1
+                continue
+
+            # If the line is not empy, it can be an article. It is recognizable by the 
+            # fact that it contains the sentence "Art. " followe by a number and,
+            # eventually, a dash with a latin specifier and a dot at the end, no more
+            # letters or numbers after the dot
+            if re.search(r'Art\. \d+(-[a-z]+)?\.?$', self._plain_text_lines[i].strip()):
+
+                # Surely, the line after the article is the title of the article itself
+                self._articles.append(
+                    Article(
+                        id=self._plain_text_lines[i].replace("Art. ", "").replace(".", "").strip(),
+                        content=[],
+                        headers=current_headers.progressive_index(),
+                    )
+                )
+                    
+            # If there is not a reference to an article, it is the body of the article.
+            else:
+                self._articles[-1].add_content(self._plain_text_lines[i].strip())
+
+
+            # Move to the next line
+            i = i + 1
