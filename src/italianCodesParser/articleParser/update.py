@@ -7,5 +7,5 @@ class Update:
     content: list[str]
 
 
-    def to_dict(self):
+    def to_list(self):
         return self.content

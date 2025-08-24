@@ -75,7 +75,7 @@ class Document:
         while i < len(self._plain_text_lines):
 
             # Search for headers
-            if re.search(r'^(LIBRO|TITOLO|CAPO|Sezione) \w+$', 
+            if re.search(r'^(LIBRO|TITOLO|CAPO|Sezione|Libro|Titolo|Capo) \w+\.?$', 
                          self._plain_text_lines[i].strip()):
                 
                 # Parse the header and the next line as the name of the header

@@ -10,8 +10,12 @@ class DocumentType(Enum):
     '''
 
     CODICE_PENALE = "././assets/documents/cp.rtf"
-    CODICE_CIVILE = "././assets/documents/cp.rtf"
-
+    CODICE_CIVILE = "././assets/documents/cc.rtf"
+    CODICE_DI_PROCEDURA_PENALE = "././assets/documents/cpp.rtf"
+    CODICE_DI_PROCEDURA_CIVILE = "././assets/documents/cpc.rtf"
+    ATTUAZIONE_CODICE_CIVILE = "././assets/documents/attcc.rtf"
+    ATTUAZIONE_CODICE_DI_PROCEDURA_CIVILE = "././assets/documents/attcpc.rtf"
+    ATTUAZIONE_CODICE_DI_PROCEDURA_PENALE = "././assets/documents/attcpp.rtf"
 
     @property
     def path(self):

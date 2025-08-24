@@ -17,18 +17,31 @@ class Article:
         self.content.append(new_content)
     
 
-    def parse_content(self):
-
+    def text_preprocess(self):
+        
         # Remove all empty lines and lines that are just text separators
         self.content = [line_content for line_content in self.content 
                         if line_content is not None
                         and not re.match(r"^-+$", line_content)]
+        
+
+    
+
+    def parse_content(self):
+
+        self.text_preprocess()
         
         # Remove links to the updates
         update_ids = [update.id for update in self.updates]
         pattern_update_ids = r"|".join(map(re.escape, update_ids))
 
         self.content = [re.sub(pattern_update_ids, "", line_content) for line_content in self.content]
+
+        # Remove all ()
+        self.content = [re.sub(r"[()]", "", line_content) for line_content in self.content]
+
+        # trim spaces
+        self.content = [line_content.strip() for line_content in self.content]
 
 
 
@@ -63,11 +76,21 @@ class Article:
 
             i = i + 1
 
+    
+    def updates_list(self):
+
+        updates = []
+        for update in self.updates:
+            updates = updates + update.to_list()
+
+        return updates
+        
+
     def to_dict(self):
         return {
             "id": self.id,
             "title": self.title,
             "content": self.content,
-            "updates": [update.to_dict() for update in self.updates],
+            "updates": self.updates_list(),
             "headers": self.headers
         }

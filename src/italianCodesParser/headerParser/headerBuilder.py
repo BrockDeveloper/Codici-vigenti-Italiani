@@ -16,14 +16,14 @@ class HeaderBuilder:
             "LIBRO": Header(None, None, HeaderType.LIBRO, None),
             "TITOLO": Header(None, None, HeaderType.TITOLO, None),
             "CAPO": Header(None, None, HeaderType.CAPO, None),
-            "Sezione": Header(None, None, HeaderType.SEZIONE, None)
+            "SEZIONE": Header(None, None, HeaderType.SEZIONE, None)
         }
 
         self._progressive: dict = {
             "LIBRO": 0,
             "TITOLO": 0,
             "CAPO": 0,
-            "Sezione": 0
+            "SEZIONE": 0
         }
 
 
@@ -35,7 +35,7 @@ class HeaderBuilder:
         '''
 
         return ".".join(str(self._progressive[key]) 
-                        for key in ["LIBRO", "TITOLO", "CAPO", "Sezione"])
+                        for key in ["LIBRO", "TITOLO", "CAPO", "SEZIONE"])
    
    
     def snapshot_update(self, header_type: str, header_id: str, header_name: str):
@@ -47,6 +47,8 @@ class HeaderBuilder:
         :param header_id: The ID of the header
         :param header_name: The name of the header
         '''
+
+        header_type = header_type.upper()
 
         updated: bool = False
         for digit in self._progressive:
