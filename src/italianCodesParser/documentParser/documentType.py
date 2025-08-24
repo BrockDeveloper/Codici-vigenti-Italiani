@@ -17,8 +17,9 @@ class DocumentType(Enum):
     ATTUAZIONE_CODICE_DI_PROCEDURA_CIVILE = "././assets/documents/attcpc.rtf"
     ATTUAZIONE_CODICE_DI_PROCEDURA_PENALE = "././assets/documents/attcpp.rtf"
 
+
     @property
-    def path(self):
+    def path(self) -> str:
 
         '''
         :return: The file path of the document type
@@ -28,10 +29,24 @@ class DocumentType(Enum):
     
 
     @property
-    def name(self):
+    def name(self) -> str:
 
         '''
         :return: The name of the document type, formatted as a string
         '''
         
         return self.name.replace("_", " ").title()
+    
+
+    def has_titles(self) -> bool:
+
+        '''
+        :return: True if the document type has titles, False otherwise
+        '''
+
+        return self in {DocumentType.CODICE_PENALE, 
+                        DocumentType.CODICE_CIVILE,
+                        DocumentType.CODICE_DI_PROCEDURA_PENALE,
+                        DocumentType.CODICE_DI_PROCEDURA_CIVILE,
+                        DocumentType.ATTUAZIONE_CODICE_DI_PROCEDURA_PENALE,
+                        DocumentType.ATTUAZIONE_CODICE_DI_PROCEDURA_CIVILE}
