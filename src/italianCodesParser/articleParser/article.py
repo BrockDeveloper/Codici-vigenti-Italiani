@@ -104,6 +104,7 @@ class Article:
         
         self.content.clean_cite_links([update.id for update in self.updates])
         self.content.remove_parentheses()
+        self.content.remove_residual_parentheses()
         self.content.strip()
     
 

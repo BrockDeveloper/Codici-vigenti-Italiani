@@ -46,7 +46,20 @@ class StrCollection:
         Remove all parentheses from the strings in the collection.
         '''
 
-        pattern = r'\(\(|\)\)'
+        pattern = r'\(\('
+        self._strings = [re.sub(pattern, '(', s) for s in self._strings]
+
+        pattern = r'\)\)'
+        self._strings = [re.sub(pattern, ')', s) for s in self._strings]
+    
+
+    def remove_residual_parentheses(self):
+
+        '''
+        Remove all residual parentheses from the strings in the collection.
+        '''
+
+        pattern = r'\(\)'
         self._strings = [re.sub(pattern, '', s) for s in self._strings]
 
 
@@ -86,6 +99,7 @@ class StrCollection:
         :param numeric_references: A list of numeric references to be removed
         '''
 
+        numeric_references = numeric_references[::-1]
         pattern = r"|".join(map(re.escape, numeric_references))
         self._strings = [re.sub(pattern, "", s) for s in self._strings]
     

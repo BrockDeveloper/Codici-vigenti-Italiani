@@ -32,7 +32,12 @@ class Utils:
         :return: The update id if the string is an update, None otherwise
         '''
 
-        return re.search(r'\d+', candidate).group(0)
+        groups = re.search(r'\d+[A-Za-z]*', candidate)
+
+        try:
+            return groups.group(1)
+        except:
+            return groups.group(0)
     
 
     @staticmethod

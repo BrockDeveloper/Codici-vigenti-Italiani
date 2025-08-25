@@ -106,6 +106,16 @@ class Document:
                     content = [],
                     headers = current_headers.progressive_index(),
                     book = self.document_type))
+        
+    
+    def __build_articles__(self):
+
+        '''
+        build the articles from the plain text lines
+        '''
+
+        for article in self._articles:
+            article.parse()
 
 
     def parse(self):
@@ -133,3 +143,5 @@ class Document:
                 self._articles[-1].add_content(self._plain_text_lines[i].strip())
 
             i = i + 1
+
+        # self.__build_articles__()
