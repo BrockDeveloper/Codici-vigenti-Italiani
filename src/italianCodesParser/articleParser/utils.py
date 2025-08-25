@@ -19,7 +19,7 @@ class Utils:
         :return: True if the string is an update, False otherwise
         '''
 
-        return re.match(r"AGGIORNAMENTO\s*\(\d+\)", candidate)
+        return re.match(r"AGGIORNAMENTO\s*\(\d+[A-Za-z]*\)", candidate)
     
 
     @staticmethod

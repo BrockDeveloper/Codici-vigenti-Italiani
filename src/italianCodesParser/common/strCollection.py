@@ -111,6 +111,18 @@ class StrCollection:
         return self._strings[index]
     
 
+    def __setitem__(self, index: int, value: str):
+
+        '''
+        Set the string at the specified index.
+
+        :param index: The index of the string to be set
+        :param value: The string to be set at the specified index
+        '''
+
+        self._strings[index] = value
+    
+
     def __iter__(self) -> iter:
 
         '''

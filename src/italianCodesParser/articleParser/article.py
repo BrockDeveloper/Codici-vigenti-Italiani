@@ -53,7 +53,7 @@ class Article:
 
         updates = []
         for update in self.updates:
-            updates = updates + update.to_list()
+            updates.append(update.to_str())
 
         return updates
 
